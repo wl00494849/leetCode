@@ -4,9 +4,9 @@ import "fmt"
 
 func main() {
 	arr := [][]int{
-		{3, 8},
+		{3, 8, 9},
 		{9, 13},
-		{4, 9},
+		{4, 9, 5},
 	}
 
 	result := recursive(arr, 0, 0, 0)
@@ -17,7 +17,7 @@ func main() {
 
 func recursive(arr [][]int, total int, row int, column int) int {
 
-	maxColums := len(arr[0])
+	maxColums := len(arr[row])
 	maxRow := len(arr)
 
 	fmt.Printf("maxColums : %d ", maxColums)
