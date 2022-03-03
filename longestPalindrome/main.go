@@ -1,18 +1,12 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 )
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
 
-	fmt.Println("please input string ")
-	input, _ := reader.ReadString('\n')
-
-	input = "babad"
+	input := "cbbd"
 
 	Output := longestPalindrome(input)
 
@@ -25,36 +19,29 @@ func main() {
 func longestPalindrome(s string) string {
 
 	var longest int
-	var result string
-
-	stack := []byte{}
-	queue := []byte{}
+	var longestStr string
 
 	for i := 0; i < len(s); i++ {
-		stack = append(stack, s[i])
-		queue = queueSlice(stack)
-
-		fmt.Println(string(stack[:]))
-		fmt.Println(string(queue[:]))
-
-		if queue[0] != stack[i] {
-			if len(stack)-1 > longest {
-				longest = len(stack) - 1
-				result = string(stack[:len(stack)-1])
-			}
-			stack = []byte{}
-			queue = []byte{}
-		}
+		maxPalindrome(&longest, &longestStr, s, i, i)
+		maxPalindrome(&longest, &longestStr, s, i, i+1)
 	}
 
-	return result
+	return longestStr
 }
 
-func queueSlice(stack []byte) []byte {
-	queue := []byte{}
+func maxPalindrome(longest *int, longestStr *string, str string, startL int, startR int) {
 
-	for i := len(stack) - 1; i >= 0; i-- {
-		queue = append(queue, stack[i])
+	for startL >= 0 && startR < len(str) {
+
+		if str[startL] != str[startR] {
+			break
+		}
+
+		if len(str[startL:startR+1]) > *longest {
+			*longest = len(str[startL : startR+1])
+			*longestStr = str[startL : startR+1]
+		}
+		startR++
+		startL--
 	}
-	return queue
 }
