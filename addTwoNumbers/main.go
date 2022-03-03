@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"exam/tool"
+	"fmt"
+)
 
 type ListNode struct {
 	Val  int
@@ -8,19 +11,28 @@ type ListNode struct {
 }
 
 func main() {
+	num1 := []int{2, 3, 4}
+	num2 := []int{5, 6, 4}
 
-	fmt.Scanln()
+	l1 := tool.ArrayToLinkList(num1)
+	l2 := tool.ArrayToLinkList(num2)
+
+	listHead := addTwoNumbers(l1, l2)
+
+	res := tool.LinkListToArray(listHead)
+
+	fmt.Printf("result : %+v", res)
 }
 
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	newListNode := &ListNode{}
+func addTwoNumbers(l1 *tool.ListNode, l2 *tool.ListNode) *tool.ListNode {
+	newListNode := &tool.ListNode{}
 	newListNodeHead := newListNode
 
 	for l1 != nil || l2 != nil {
 
 		if newListNode != nil {
 			if newListNode.Next == nil {
-				newListNode.Next = &ListNode{}
+				newListNode.Next = &tool.ListNode{}
 			}
 		}
 
@@ -35,13 +47,12 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		}
 
 		if newListNode.Next.Val > 9 {
-			newListNode.Next.Next = &ListNode{
+			newListNode.Next.Next = &tool.ListNode{
 				Val: newListNode.Next.Val / 10,
 			}
 
 			newListNode.Next.Val = newListNode.Next.Val % 10
 		}
-		fmt.Println(newListNode.Val)
 		newListNode = newListNode.Next
 	}
 

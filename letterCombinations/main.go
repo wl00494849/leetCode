@@ -31,8 +31,10 @@ func letterCombinations(digits string) []string {
 }
 
 func recursives(digits string, index int, s string, result *[]string) {
+
 	fmt.Printf("sting : %s ,round : %d", s, index)
 	fmt.Println()
+
 	if len(digits) == index {
 		*result = append(*result, s)
 		return
